@@ -11,7 +11,7 @@
 #define NUM_THREADS 3
 
 void *job(void *arg) {
-    char buf[256];
+    char buf[1024] = "";
     ssize_t len;
     TCPStream *s = (TCPStream *)arg;
 

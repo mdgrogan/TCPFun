@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
     if (argc < 2 || argc > 4)
 	return 1;
 
-    char buf[256];
+    char buf[256] = "";
     ssize_t len;
     TCPStream* stream = NULL;
     TCPServer* server = NULL;

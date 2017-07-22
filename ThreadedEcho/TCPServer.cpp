@@ -18,6 +18,7 @@ TCPServer::~TCPServer() {
 int TCPServer::start() {
     int ret;
     struct sockaddr_in address;
+    int option = 1;
     
     /* make sure not already listening */
     if (_isListening) 
@@ -29,6 +30,7 @@ int TCPServer::start() {
 	fprintf(stderr, "socket() failed: %d\n", _listenerSockfd);
 	return _listenerSockfd;
     }
+    setsockopt(_listenerSockfd, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
 
     /* setup addressing */
     memset(&address, 0, sizeof(address));
@@ -45,7 +47,7 @@ int TCPServer::start() {
 	return ret;
     }
 
-    ret = listen(_listenerSockfd, 10);
+    ret = listen(_listenerSockfd, 1);
     if (ret) {
 	fprintf(stderr, "listen() failed: %d\n", ret);
 	return ret;
